@@ -113,28 +113,25 @@ function renderButtons() {
 
 function renderPrice() {
     // Iteration 4: change the HTML of `<aside class="panel price">`
-    let totalPrice = basePrice;
-    let price = '';
 
-    ingredients.forEach(ingredient => {
-        if (state[ingredients]) {
-            price += `${ ingredients[ingredient].price } ${ ingredients[ingredient].name }`
-
-            totalPrice += ingredients[ingredient].price;
+    // Iteration 4: change the HTML of `<aside class="panel price">`
+    const stateValues = Object.values(state); // get status values and add them into an array
+    const ingredientValues = Object.values(ingredients); // get ingredient objt and add them into an array
+    const pricePanel = document.querySelector(".panel.price ul");
+    const finalPrice = document.querySelector(".panel.price strong");
+    const cheesePizzaPrice = document.querySelector(".panel.price b");
+    let totalPrice = 10;
+    pricePanel.innerHTML = ""; // clean existing list
+    stateValues.forEach((status, i) => {
+        if (status) {
+            totalPrice += ingredientValues[i].price;
+            pricePanel.innerHTML += `<li>$${ingredientValues[i].price} ${ingredientValues[i].name}</li>`
         }
-
     })
-    const priceHTML =
-        `
-    <h2> Your pizza´s price</h2>
-    <b> ${basePrice} cheese pizza </b>
-    <ul>
-    ${price}
-    </ul>
-    <strong> ${totalPrice} </strong> `;
-
-    document.querySelectorAll('.panel.price').innerHTML = priceHTML;
+    finalPrice.innerText = `$${totalPrice}`;
+    cheesePizzaPrice.innerText = `$${totalPrice} cheese pizza`;
 }
+
 
 
 
